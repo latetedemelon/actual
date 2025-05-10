@@ -27,8 +27,8 @@ export async function loadBudget(budgetId) {
   return send('api/load-budget', { id: budgetId });
 }
 
-export async function downloadBudget(syncId, { password }: { password? } = {}) {
-  return send('api/download-budget', { syncId, password });
+export async function downloadBudget(syncId, { password, token, authMethod }: { password?; token?; authMethod?: 'password' | 'header' | 'openid' } = {}) {
+  return send('api/download-budget', { syncId, password, token, authMethod });
 }
 
 export async function getBudgets() {
@@ -237,4 +237,52 @@ export function holdBudgetForNextMonth(month, amount) {
 
 export function resetBudgetHold(month) {
   return send('api/budget-reset-hold', { month });
+}
+
+// Authentication methods
+/**
+ * Authenticate using password
+ * @param password - The password to use for authentication
+ * @returns Authentication token
+ */
+export async function loginWithPassword(password: string) {
+  return send('api/login-password', { password });
+}
+
+/**
+ * Authenticate using OIDC
+ * @param returnUrl - The URL to return to after authentication
+ * @param password - Optional password for first time login
+ * @returns Object with returnUrl for OIDC redirection
+ */
+export async function loginWithOidc(returnUrl: string, password?: string) {
+  return send('api/login-oidc', { returnUrl, password });
+}
+
+/**
+ * Get OIDC authentication token from callback
+ * @param code - Authorization code from OIDC provider
+ * @param state - State from OIDC provider
+ * @param iss - Issuer from OIDC provider
+ * @returns Authentication token
+ */
+export async function getOidcToken(code: string, state: string, iss?: string) {
+  return send('api/oidc-token', { code, state, iss });
+}
+
+/**
+ * Authenticate using HTTP headers
+ * @param headerValue - The value from the x-actual-password header
+ * @returns Authentication token
+ */
+export async function loginWithHeader(headerValue: string) {
+  return send('api/login-header', { headerValue });
+}
+
+/**
+ * Get list of available login methods
+ * @returns Available authentication methods
+ */
+export async function getLoginMethods() {
+  return send('api/login-methods');
 }

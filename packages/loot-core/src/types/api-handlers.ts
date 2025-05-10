@@ -186,4 +186,15 @@ export interface ApiHandlers {
   'api/rule-update': (arg: { rule: RuleEntity }) => Promise<RuleEntity>;
 
   'api/rule-delete': (id: string) => Promise<boolean>;
+
+  // Authentication handlers
+  'api/login-password': (arg: { password: string }) => Promise<string | { error: string }>;
+
+  'api/login-oidc': (arg: { returnUrl: string, password?: string }) => Promise<{ returnUrl: string } | { error: string }>;
+
+  'api/oidc-token': (arg: { code: string, state: string, iss?: string }) => Promise<string | { error: string }>;
+
+  'api/login-header': (arg: { headerValue: string }) => Promise<string | { error: string }>;
+  
+  'api/login-methods': () => Promise<Array<{ method: string, displayName: string, active: boolean }> | { error: string }>;
 }

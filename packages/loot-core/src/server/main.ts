@@ -13,6 +13,7 @@ import { Handlers } from '../types/handlers';
 import { app as accountsApp } from './accounts/app';
 import { app as adminApp } from './admin/app';
 import { installAPI } from './api';
+import { handlers as authApiHandlers } from './auth-api';
 import { aqlQuery } from './aql';
 import { app as authApp } from './auth/app';
 import { app as budgetApp } from './budget/app';
@@ -122,6 +123,9 @@ handlers['app-focused'] = async function () {
     fullSync();
   }
 };
+
+// Merge the auth API handlers into the handlers object
+Object.assign(handlers, authApiHandlers);
 
 handlers = installAPI(handlers) as Handlers;
 

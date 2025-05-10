@@ -35,6 +35,16 @@ Read about [Envelope budgeting](https://actualbudget.org/docs/getting-started/en
 
 Check out the community's [Starting Fresh](https://actualbudget.org/docs/getting-started/starting-fresh) guide so you can quickly get up and running!
 
+### Authentication Methods
+
+Actual Budget supports multiple authentication methods:
+
+- **Password Authentication**: The traditional login method with a server password
+- **OpenID Connect (OIDC)**: Integration with third-party identity providers
+- **Header-Based Authentication**: For use with trusted proxy servers
+
+Learn more in the [Authentication Methods](docs/authentication-methods.md) documentation.
+
 ### Are you migrating from other budgeting apps?
 
 Check out the community's [Migration](https://actualbudget.org/docs/migration/) guide to start jumping on the Actual Budget train!
